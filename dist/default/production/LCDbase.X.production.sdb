@@ -51,11 +51,11 @@
 [v _WriteDataXLCD WriteDataXLCD `(v  1 e 1 0 ]
 "426
 [v _BusyXLCD BusyXLCD `(uc  1 e 1 0 ]
-"23 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\Programa_principal.c
+"86 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\Programa_principal.c
 [v _LCD_Init LCD_Init `(v  1 e 1 0 ]
-"32
+"96
 [v _main main `(v  1 e 1 0 ]
-"76
+"160
 [v _JOSHUAint0 JOSHUAint0 `IIH(v  1 e 1 0 ]
 [s S96 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
@@ -84,7 +84,7 @@
 [v _PORTD PORTD `VEuc  1 e 1 @3971 ]
 "3073
 [v _LATB LATB `VEuc  1 e 1 @3978 ]
-[s S439 . 1 `uc 1 LATD0 1 0 :1:0 
+[s S450 . 1 `uc 1 LATD0 1 0 :1:0 
 `uc 1 LATD1 1 0 :1:1 
 `uc 1 LATD2 1 0 :1:2 
 `uc 1 LATD3 1 0 :1:3 
@@ -94,7 +94,7 @@
 `uc 1 LATD7 1 0 :1:7 
 ]
 "3290
-[s S448 . 1 `uc 1 LD0 1 0 :1:0 
+[s S459 . 1 `uc 1 LD0 1 0 :1:0 
 `uc 1 LD1 1 0 :1:1 
 `uc 1 LD2 1 0 :1:2 
 `uc 1 LD3 1 0 :1:3 
@@ -103,8 +103,8 @@
 `uc 1 LD6 1 0 :1:6 
 `uc 1 LD7 1 0 :1:7 
 ]
-[u S457 . 1 `S439 1 . 1 0 `S448 1 . 1 0 ]
-[v _LATDbits LATDbits `VES457  1 e 1 @3980 ]
+[u S468 . 1 `S450 1 . 1 0 `S459 1 . 1 0 ]
+[v _LATDbits LATDbits `VES468  1 e 1 @3980 ]
 [s S87 . 1 `uc 1 TRISB0 1 0 :1:0 
 `uc 1 TRISB1 1 0 :1:1 
 `uc 1 TRISB2 1 0 :1:2 
@@ -119,7 +119,7 @@
 [v _TRISBbits TRISBbits `VES105  1 e 1 @3987 ]
 "4001
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
-[s S399 . 1 `uc 1 TRISD0 1 0 :1:0 
+[s S410 . 1 `uc 1 TRISD0 1 0 :1:0 
 `uc 1 TRISD1 1 0 :1:1 
 `uc 1 TRISD2 1 0 :1:2 
 `uc 1 TRISD3 1 0 :1:3 
@@ -129,7 +129,7 @@
 `uc 1 TRISD7 1 0 :1:7 
 ]
 "4033
-[s S408 . 1 `uc 1 RD0 1 0 :1:0 
+[s S419 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
 `uc 1 RD3 1 0 :1:3 
@@ -138,8 +138,8 @@
 `uc 1 RD6 1 0 :1:6 
 `uc 1 RD7 1 0 :1:7 
 ]
-[u S417 . 1 `S399 1 . 1 0 `S408 1 . 1 0 ]
-[v _TRISDbits TRISDbits `VES417  1 e 1 @3989 ]
+[u S428 . 1 `S410 1 . 1 0 `S419 1 . 1 0 ]
+[v _TRISDbits TRISDbits `VES428  1 e 1 @3989 ]
 [s S166 . 1 `uc 1 NOT_BOR 1 0 :1:0 
 ]
 "7588
@@ -223,14 +223,30 @@
 [u S60 . 1 `S38 1 . 1 0 `S47 1 . 1 0 `S56 1 . 1 0 ]
 [v _INTCONbits INTCONbits `VES60  1 e 1 @4082 ]
 "13 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\Programa_principal.c
-[v _wels wels `C[9]uc  1 e 9 0 ]
+[v _max max `C[9]uc  1 e 9 0 ]
+"22
+[v _min min `C[9]uc  1 e 9 0 ]
 "31
+[v _b1 b1 `C[9]uc  1 e 9 0 ]
+"40
+[v _b2 b2 `C[9]uc  1 e 9 0 ]
+"49
+[v _b3 b3 `C[9]uc  1 e 9 0 ]
+"58
+[v _b4 b4 `C[9]uc  1 e 9 0 ]
+"67
+[v _b5 b5 `C[9]uc  1 e 9 0 ]
+"76
+[v _b6 b6 `C[9]uc  1 e 9 0 ]
+"94
 [v _p p `i  1 e 2 0 ]
 [v _i i `i  1 e 2 0 ]
-"32
+"95
+[v _cgr cgr `[15]uc  1 e 15 0 ]
+"96
 [v _main main `(v  1 e 1 0 ]
 {
-"75
+"159
 } 0
 "118 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\LCD_libreria.c
 [v _putrsXLCD putrsXLCD `(v  1 e 1 0 ]
@@ -271,10 +287,10 @@
 [v SetCGRamAddr@CGaddr CGaddr `uc  1 a 1 5 ]
 "280
 } 0
-"23 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\Programa_principal.c
+"86 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\Programa_principal.c
 [v _LCD_Init LCD_Init `(v  1 e 1 0 ]
 {
-"28
+"91
 } 0
 "54 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\LCD_libreria.c
 [v _OpenXLCD OpenXLCD `(v  1 e 1 0 ]
@@ -318,10 +334,10 @@
 {
 "21
 } 0
-"76 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\Programa_principal.c
+"160 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\Programa_principal.c
 [v _JOSHUAint0 JOSHUAint0 `IIH(v  1 e 1 0 ]
 {
-"89
+"175
 } 0
 "142 C:\Users\Joshua Hernandez\MPLABXProjects\LCDbase.X\LCD_libreria.c
 [v i2_WriteCmdXLCD WriteCmdXLCD `(v  1 e 1 0 ]

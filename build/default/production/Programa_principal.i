@@ -5783,7 +5783,70 @@ void LCD_WriteChr_CGRAM( const char *buffer, unsigned char Addres);
 # 11 "Programa_principal.c" 2
 
 
-const char wels[]={ 0b00011111,
+const char max[]={ 0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char min[]={ 0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b1[]={ 0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b2[]={ 0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b3[]={ 0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b4[]={ 0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b5[]={ 0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b6[]={ 0b00000011,
                         0b00011111,
                         0b00011111,
                         0b00011111,
@@ -5802,6 +5865,7 @@ void LCD_Init(void){
 void __attribute__((picinterrupt(("high_priority")))) JOSHUAint0(void);
 unsigned char cuenta=0;
 int p=0,i=0;
+unsigned char cgr[]={0,0,1,1,2,2,3,3,4,4,5,5,6,7,7};
 void main(void) {
     INTCONbits.GIE=0;
 
@@ -5827,7 +5891,14 @@ void main(void) {
     LCD_gotoXY(0,0);
     putrsXLCD("VOLUMEN:");
     _delay((unsigned long)((100)*(20000000L/4000.0)));
-    LCD_WriteChr_CGRAM(wels,0);
+    LCD_WriteChr_CGRAM(min,0);
+    LCD_WriteChr_CGRAM(b1,1);
+    LCD_WriteChr_CGRAM(b2,2);
+    LCD_WriteChr_CGRAM(b3,3);
+    LCD_WriteChr_CGRAM(b4,4);
+    LCD_WriteChr_CGRAM(b5,5);
+    LCD_WriteChr_CGRAM(b6,6);
+    LCD_WriteChr_CGRAM(max,7);
     _delay((unsigned long)((500)*(20000000L/4000.0)));
 
 
@@ -5838,10 +5909,23 @@ void main(void) {
             putrsXLCD("VOLUMEN:");
             _delay((unsigned long)((100)*(20000000L/4000.0)));
             for(i=0;i<p;i++){
-                LCD_gotoXY(1,i);
-                WriteDataXLCD(0);
-                _delay((unsigned long)((200)*(20000000L/4000.0)));
+                if(p<=15){
+                    LCD_gotoXY(1,i);
+                    WriteDataXLCD(cgr[i]);
+                    _delay((unsigned long)((100)*(20000000L/4000.0)));
+                }else{
+                    LCD_gotoXY(1,0);
+                    putrsXLCD("MAX");
+                    _delay((unsigned long)((100)*(20000000L/4000.0)));
+                }
             }
+        }else{
+            LCD_gotoXY(0,0);
+            putrsXLCD("VOLUMEN:");
+            _delay((unsigned long)((100)*(20000000L/4000.0)));
+            LCD_gotoXY(1,0);
+            putrsXLCD("MIN");
+            _delay((unsigned long)((100)*(20000000L/4000.0)));
         }
     }
     return;
@@ -5850,11 +5934,13 @@ void __attribute__((picinterrupt(("high_priority")))) JOSHUAint0(void){
     if(INTCONbits.INT0IF){
         _delay((unsigned long)((100)*(20000000L/4000000.0)));
         if(PORTBbits.RB1 != PORTBbits.RB0){
-
-            p++;
+            if(p<16){
+                p++;
+            }
         }else if(PORTBbits.RB1 == PORTBbits.RB0){
-
-            p--;
+            if(p>0){
+                p--;
+            }
         }
     }
     WriteCmdXLCD(0x01);

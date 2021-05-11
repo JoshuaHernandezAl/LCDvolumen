@@ -10,7 +10,70 @@
 #include "Configuracion.h"
 #include "LCD_libreria.h"
 
-const char wels[]={     0b00011111,
+const char max[]={      0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char min[]={      0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b1[]={       0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b2[]={       0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b3[]={       0b00000000,
+                        0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b4[]={       0b00000000,
+                        0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b5[]={       0b00000000,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00011111,
+                        0b00000000,0
+};
+const char b6[]={       0b00000011,
                         0b00011111,
                         0b00011111,
                         0b00011111,
@@ -29,6 +92,7 @@ void LCD_Init(void){
 void __interrupt(high_priority) JOSHUAint0(void);
 unsigned char cuenta=0;
 int p=0,i=0;
+unsigned char cgr[]={0,0,1,1,2,2,3,3,4,4,5,5,6,7,7};
 void main(void) {    
     INTCONbits.GIE=0;//Evitamos la interrupcion por error
     
@@ -54,7 +118,14 @@ void main(void) {
     LCD_gotoXY(0,0);
     putrsXLCD("VOLUMEN:");
     __delay_ms(100);
-    LCD_WriteChr_CGRAM(wels,0);
+    LCD_WriteChr_CGRAM(min,0);
+    LCD_WriteChr_CGRAM(b1,1);
+    LCD_WriteChr_CGRAM(b2,2);
+    LCD_WriteChr_CGRAM(b3,3);
+    LCD_WriteChr_CGRAM(b4,4);
+    LCD_WriteChr_CGRAM(b5,5);
+    LCD_WriteChr_CGRAM(b6,6);
+    LCD_WriteChr_CGRAM(max,7);
     __delay_ms(500);
     /**/
     
@@ -65,10 +136,23 @@ void main(void) {
             putrsXLCD("VOLUMEN:");
             __delay_ms(100);
             for(i=0;i<p;i++){
-                LCD_gotoXY(1,i);
-                putcXLCD(0);
-                __delay_ms(200);
+                if(p<=15){
+                    LCD_gotoXY(1,i);
+                    putcXLCD(cgr[i]);
+                    __delay_ms(100);
+                }else{
+                    LCD_gotoXY(1,0);
+                    putrsXLCD("MAX");
+                    __delay_ms(100);
+                }
             }
+        }else{
+            LCD_gotoXY(0,0);
+            putrsXLCD("VOLUMEN:");
+            __delay_ms(100);
+            LCD_gotoXY(1,0);
+            putrsXLCD("MIN");
+            __delay_ms(100);
         }
     }
     return;
@@ -77,11 +161,13 @@ void __interrupt(high_priority) JOSHUAint0(void){
     if(INTCONbits.INT0IF){//conrpueba el esta de verdad en la bandera
         __delay_us(100);//Ponemos 100 us para omitir la lectura de rebotes
         if(PORTBbits.RB1 != PORTBbits.RB0){
-            //cuenta++;//esta variable debe de ser de tipo global
-            p++;
+            if(p<16){
+                p++;
+            }
         }else if(PORTBbits.RB1 == PORTBbits.RB0){
-            //cuenta--;
-            p--;
+            if(p>0){
+                p--;
+            }
         }
     }
     WriteCmdXLCD(BORRAR_LCD);
